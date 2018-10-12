@@ -9,3 +9,7 @@
 - `Docker <https://github.com/Netflix/lemur-docker>`_
 
 excelent
+
+sql
+gcc
+gnu
