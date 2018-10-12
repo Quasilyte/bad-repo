@@ -11,7 +11,7 @@
 excelent
 
 sql
-gcc
+/gcc/
 gnu
 
 example:
