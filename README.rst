@@ -8,4 +8,4 @@
 - `Issue tracker <https://github.com/netflix/lemur/issues>`_
 - `Docker <https://github.com/Netflix/lemur-docker>`_
 
-wanring
+excelent
