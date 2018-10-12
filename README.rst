@@ -13,3 +13,10 @@ excelent
 sql
 gcc
 gnu
+
+example:
+```
+$CLASSPAHT
+${GOPAHT}
+
+```
