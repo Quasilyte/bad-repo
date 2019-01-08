@@ -316,6 +316,7 @@ with fasthttp support:
 * net/http -> fasthttp conversion table:
 
   * All the pseudocode below assumes w, r and ctx have these types:
+  
 ```go
 	var (
 		w http.ResponseWriter
@@ -323,6 +324,7 @@ with fasthttp support:
 		ctx *fasthttp.RequestCtx
 		)
 ```
+
   * r.Body -> [ctx.PostBody()](https://godoc.org/github.com/valyala/fasthttp#RequestCtx.PostBody)
   * r.URL.Path -> [ctx.Path()](https://godoc.org/github.com/valyala/fasthttp#RequestCtx.Path)
   * r.URL -> [ctx.URI()](https://godoc.org/github.com/valyala/fasthttp#RequestCtx.URI)
@@ -428,6 +430,7 @@ instead of [html/template](https://golang.org/pkg/html/template/).
 The following tricks are used by fasthttp. Use them in your code too.
 
 * Standard Go functions accept nil buffers
+
 ```go
 var (
 	// both buffers are uninitialized
@@ -447,6 +450,7 @@ for i, ch := range src {
 ```
 
 So throw away nil checks for `[]byte` buffers from you code. For example,
+
 ```go
 srcLen := 0
 if src != nil {
@@ -461,11 +465,13 @@ srcLen := len(src)
 ```
 
 * String may be appended to `[]byte` buffer with `append`
+
 ```go
 dst = append(dst, "foobar"...)
 ```
 
 * `[]byte` buffer may be extended to its' capacity.
+
 ```go
 buf := make([]byte, 100)
 a := buf[:10]  // len(a) == 10, cap(a) == 100.
@@ -473,6 +479,7 @@ b := a[:100]  // is valid, since cap(a) == 100.
 ```
 
 * All fasthttp functions accept nil `[]byte` buffer
+
 ```go
 statusCode, body, err := fasthttp.Get(nil, "http://google.com/")
 uintBuf := fasthttp.AppendUint(nil, 1234)
