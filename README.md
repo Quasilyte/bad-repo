@@ -2,6 +2,10 @@
 
 The document body.
 
+    ```
+    if err != nil {}
+    ```
+
 ```golang
 func fdsda() {}
 ```
