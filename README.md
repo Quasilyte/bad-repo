@@ -179,7 +179,7 @@ Important points:
 instead of objects implementing [Handler interface](https://golang.org/pkg/net/http/#Handler).
 Fortunately, it is easy to pass bound struct methods to fasthttp:
 
-  ```go
+```go
   type MyHandler struct {
   	foobar string
   }
@@ -204,7 +204,7 @@ Fortunately, it is easy to pass bound struct methods to fasthttp:
 
   // pass plain function to fasthttp
   fasthttp.ListenAndServe(":8081", fastHTTPHandler)
-  ```
+```
 
 * The [RequestHandler](https://godoc.org/github.com/valyala/fasthttp#RequestHandler)
 accepts only one argument - [RequestCtx](https://godoc.org/github.com/valyala/fasthttp#RequestCtx).
@@ -212,7 +212,7 @@ It contains all the functionality required for http request processing
 and response writing. Below is an example of a simple request handler conversion
 from net/http to fasthttp.
 
-  ```go
+```go
   // net/http request handler
   requestHandler := func(w http.ResponseWriter, r *http.Request) {
   	switch r.URL.Path {
@@ -224,9 +224,9 @@ from net/http to fasthttp.
   		http.Error(w, "Unsupported path", http.StatusNotFound)
   	}
   }
-  ```
+```
 
-  ```go
+```go
   // the corresponding fasthttp request handler
   requestHandler := func(ctx *fasthttp.RequestCtx) {
   	switch string(ctx.Path()) {
@@ -238,13 +238,13 @@ from net/http to fasthttp.
   		ctx.Error("Unsupported path", fasthttp.StatusNotFound)
   	}
   }
-  ```
+```
 
 * Fasthttp allows setting response headers and writing response body
 in an arbitrary order. There is no 'headers first, then body' restriction
 like in net/http. The following code is valid for fasthttp:
 
-  ```go
+```go
   requestHandler := func(ctx *fasthttp.RequestCtx) {
   	// set some headers and status code first
   	ctx.SetContentType("foo/bar")
@@ -271,7 +271,7 @@ like in net/http. The following code is valid for fasthttp:
   	// Unlike net/http fasthttp doesn't put response to the wire until
   	// returning from RequestHandler.
   }
-  ```
+```
 
 * Fasthttp doesn't provide [ServeMux](https://golang.org/pkg/net/http/#ServeMux),
 but there are more powerful third-party routers and web frameworks
@@ -284,7 +284,7 @@ with fasthttp support:
 
   Net/http code with simple ServeMux is trivially converted to fasthttp code:
 
-  ```go
+```go
   // net/http code
 
   m := &http.ServeMux{}
@@ -293,9 +293,9 @@ with fasthttp support:
   m.Handle("/baz", bazHandler)
 
   http.ListenAndServe(":80", m)
-  ```
+```
 
-  ```go
+```go
   // the corresponding fasthttp code
   m := func(ctx *fasthttp.RequestCtx) {
   	switch string(ctx.Path()) {
@@ -311,18 +311,18 @@ with fasthttp support:
   }
 
   fasthttp.ListenAndServe(":80", m)
-  ```
+```
 
 * net/http -> fasthttp conversion table:
 
   * All the pseudocode below assumes w, r and ctx have these types:
-  ```go
+```go
 	var (
 		w http.ResponseWriter
 		r *http.Request
 		ctx *fasthttp.RequestCtx
-	)
-  ```
+		)
+```
   * r.Body -> [ctx.PostBody()](https://godoc.org/github.com/valyala/fasthttp#RequestCtx.PostBody)
   * r.URL.Path -> [ctx.Path()](https://godoc.org/github.com/valyala/fasthttp#RequestCtx.Path)
   * r.URL -> [ctx.URI()](https://godoc.org/github.com/valyala/fasthttp#RequestCtx.URI)
